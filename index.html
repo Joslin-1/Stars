@@ -65,6 +65,11 @@
     <script>
         document.getElementById('button').addEventListener('click', function () {
             window.location.href = './index2.html'; 
+
+        document.oncontextmenu = function(event) {
+            event.preventDefault();
+        
+        };
         });
     </script>
 </body>
