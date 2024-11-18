@@ -27,14 +27,19 @@
             padding: 10px 20px;
             font-size: 16px;
         }
+        #little{
+            opacity:0;
+        }
 
-        #little {
-            opacity: 0;
+        .little-animation {
+        
             animation: happy 1s linear 4s forwards;
         }
 
         @keyframes happy {
-
+           0%{
+               opacity:0;
+           }
             100% {
                 opacity: 1;
             }
@@ -58,6 +63,9 @@
     <script>
 
         window.onload = function () {
+            setTimeout(function(){
+                
+            
             var text = 'Happy every day !'
             var text2 = '--To you'
             var content = document.getElementById('word')
@@ -84,6 +92,7 @@
                     } else {
                         var endTime = Date.now()
                         console.log(endTime - startTime)
+                        document.getElementById('little').classList.add('little-animation')
                     }
                 }
 
@@ -94,6 +103,7 @@
             btn.addEventListener('click', function () {
                 window.location.href = './index2.html'
             })
+                },1000)
         }
 
 
