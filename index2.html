@@ -4,26 +4,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>achieve it</title>
-  <style>
-    body{
-      background:black;
-      color:white;
-      display:flex;
-      justify-content:center;
-      font-family: 'STKaiti', sans-serif;
-    }
+    <title>welcome</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            background-image: url('./star-boy.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+
+        #btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .little-animation {
+            opacity: 0;
+            animation: happy 1s linear 4s forwards;
+        }
+
+        @keyframes happy {
+
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
+
 <body>
-  <h3>
- 是你这么开心又好看✨
-  </h3>
+    <div id="box">
+        <h1 id="word"></h1>
+        <h4 id="word2"></h4>
+        <div id="little">
+            <p>星星观测_web page🌟</p>
+            <p>正在一点一点完善…✍️</p>
+            <p>敬请期待！</p>
+            <button id="btn">👉</button>
+        </div>
+    </div>
+
+
     <script>
-        document.oncontextmenu = function(event) {
-            event.preventDefault();
-        
-        };
+
+        window.onload = function () {
+            var text = 'Happy every day !'
+            var text2 = '--To you'
+            var content = document.getElementById('word')
+            var content2 = document.getElementById('word2')
+
+
+            let index = 0;
+            let index2 = 0;
+
+            var startTime = Date.now()
+
+            function typeText() {
+                if (index < text.length) {
+                    content.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(typeText, 150)
+                } else {
+
+
+                    if (index2 < text2.length) {
+                        content2.innerHTML += text2.charAt(index2);
+                        index2++;
+                        setTimeout(typeText, 150)
+                    } else {
+                        var endTime = Date.now()
+                        console.log(endTime - startTime)
+                    }
+                }
+
+            }
+            typeText();
+
+            var btn = document.getElementById('btn')
+            btn.addEventListener('click', function () {
+                window.location.href = './index2.html'
+            })
+
+
+            document.getElementById('little').classList.add('little-animation')
+        }
+
+
     </script>
 </body>
+
 </html>
