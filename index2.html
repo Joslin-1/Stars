@@ -16,7 +16,7 @@
             align-items: center;
             text-align: center;
             overflow: hidden;
-            background-image: url('./star-boy.jpg');
+            background-image: url('./bg.jpg');
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -28,13 +28,18 @@
             font-size: 16px;
         }
 
-        .little-animation {
+        #little{
             opacity: 0;
-            animation: happy 1s linear 4s forwards;
+        }
+        .little-animation {
+            animation: happy 1s linear forwards;
         }
 
         @keyframes happy {
 
+            0%{
+                opacity: 0;
+            }
             100% {
                 opacity: 1;
             }
@@ -84,6 +89,8 @@
                     } else {
                         var endTime = Date.now()
                         console.log(endTime - startTime)
+                        document.getElementById('little').classList.add('little-animation')
+
                     }
                 }
 
@@ -96,7 +103,6 @@
             })
 
 
-            document.getElementById('little').classList.add('little-animation')
         }
 
 
