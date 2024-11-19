@@ -2,100 +2,84 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>welcome</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-            background-image: url('./star-boy.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            background-image: url('./bg.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .little {
+            visibility: hidden;
+        }
 
 
-        #btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-        #little{
-            opacity:0;
-        }
+        .little-animation {
+            animation: happy 1.2s linear forwards;
+        }
 
-        .little-animation {
-        
-            animation: happy 1s linear 1s forwards;
-        }
+        @keyframes happy {
 
-        @keyframes happy {
-           0%{
-               opacity:0;
-           }
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div id="box">
-        <h1 id="word"></h1>
-        <h4 id="word2"></h4>
-        <div id="little">
-            <p>星星观测_web page🌟</p>
-            <p>正在一点一点完善…✍️</p>
-            <p>敬请期待！</p>
-            <button id="btn">👉</button>
-        </div>
-    </div>
-    <script>
-       // window.onload = function () {
-                
-            setTimeout(function(){
-            var text = 'Happy every day !'
-            var text2 = '--To you'
-            var content = document.getElementById('word')
-            var content2 = document.getElementById('word2')
-            let index = 0;
-            let index2 = 0;
-            var startTime = Date.now()
-            function typeText() {
-                if (index < text.length) {
-                    content.innerHTML += text.charAt(index);
-                    index++;
-                    setTimeout(typeText, 150)
-                } else {
-                    if (index2 < text2.length) {
-                        content2.innerHTML += text2.charAt(index2);
-                        index2++;
-                        setTimeout(typeText, 150)
-                    } else {
-                        var endTime = Date.now()
-                        console.log(endTime - startTime)
-                        document.getElementById('little').classList.add('little-animation')
-                    }
-                }
+    <div id="box">
+        <h1 id="word"></h1>
+        <h4 id="word2"></h4>
+        <div id="little" class="little">
+            <p>星星观测_web page🌟</p >
+            <p>正在一点一点完善…✍</p >
+            <p>敬请期待！</p >
+            <button id="btn">👉</button>
+        </div>
+    </div>
 
-            }
-            typeText();
-             },1500)
-            var btn = document.getElementById('btn')
-            btn.addEventListener('click', function () {
-                window.location.href = './index2.html'
-        })
-           
-   // }
+    <script>
 
-    </script>
-</body>
+        var text = 'Happy every day !'
+        var text2 = '--To you'
+        var content = document.getElementById('word')
+        var content2 = document.getElementById('word2')
+        let index = 0;
+        let index2 = 0;
 
-</html>
+        window.onload = function () {
+
+            var isLoaded = sessionStorage.getItem('pageLoaded')
+
+            function typeText() {
+                if (index < text.length) {
+                    content.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(typeText, 150)
+                } else if (index2 < text2.length) {
+                    content2.innerHTML += text2.charAt(index2);
+                    index2++;
+                  
