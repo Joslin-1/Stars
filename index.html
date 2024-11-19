@@ -70,6 +70,7 @@
         let index = 0;
         let index2 = 0;
         window.onload = function () {
+            setTimeout(function(){
             function typeText() {
                 if (index < text.length) {
                     content.innerHTML += text.charAt(index);
@@ -85,6 +86,7 @@
                 }
             }
             typeText();
+            },1000)
         }
 
     
