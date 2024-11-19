@@ -46,7 +46,6 @@
         }
     </style>
 </head>
-
 <body>
     <div id="box">
         <h1 id="word"></h1>
@@ -58,34 +57,23 @@
             <button id="btn">👉</button>
         </div>
     </div>
-
-
     <script>
-
         window.onload = function () {
                 
             setTimeout(function(){
-                
-            
             var text = 'Happy every day !'
             var text2 = '--To you'
             var content = document.getElementById('word')
             var content2 = document.getElementById('word2')
-
-
             let index = 0;
             let index2 = 0;
-
             var startTime = Date.now()
-
             function typeText() {
                 if (index < text.length) {
                     content.innerHTML += text.charAt(index);
                     index++;
                     setTimeout(typeText, 150)
                 } else {
-
-
                     if (index2 < text2.length) {
                         content2.innerHTML += text2.charAt(index2);
                         index2++;
@@ -99,14 +87,11 @@
 
             }
             typeText();
-
-            
              },1500)
             var btn = document.getElementById('btn')
             btn.addEventListener('click', function () {
                 window.location.href = './index2.html'
         })
-            
     }
 
 
