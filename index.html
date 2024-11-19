@@ -31,7 +31,6 @@
             visibility: hidden;
         }
 
-
         .little-animation {
             animation: happy 1.2s linear forwards;
         }
@@ -59,24 +58,18 @@
         <div id="little" class="little">
             <p>星星观测_web page🌟</p>
             <p>正在一点一点完善…✍️</p>
-            <p>敬请期待！</p>
             <button id="btn"><a href="./index2.html">👉</a></button>
         </div>
     </div>
 
     <script>
-
         var text = 'Happy every day !'
         var text2 = '--To you'
         var content = document.getElementById('word')
         var content2 = document.getElementById('word2')
         let index = 0;
         let index2 = 0;
-
         window.onload = function () {
-
-           // var isLoaded = localStorage.getItem('pageLoaded')
-
             function typeText() {
                 if (index < text.length) {
                     content.innerHTML += text.charAt(index);
@@ -91,21 +84,10 @@
                     document.getElementById('little').classList.add('little-animation')
                 }
             }
-           // if (!isLoaded) {
-                typeText()
-               // localStorage.setItem('pageLoaded', 'true');
-
-          //  } else {
-                // content.innerHTML = text;
-                // content2.innerHTML = text2;
-                // document.getElementById('little').classList.remove('little')
-            // }
+            typeText();
         }
 
-        // window.addEventListener('beforeunload', (event) => {
-        //     localStorage.clear()
-
-        // });
+    
 
 
 
