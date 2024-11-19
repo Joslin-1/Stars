@@ -82,4 +82,35 @@
                 } else if (index2 < text2.length) {
                     content2.innerHTML += text2.charAt(index2);
                     index2++;
-                  
+                  
+                        setTimeout(typeText, 150)
+                } else {
+                    document.getElementById('little').classList.remove('little')
+                    document.getElementById('little').classList.add('little-animation')
+                }
+            }
+            if (!isLoaded) {
+                typeText()
+                sessionStorage.setItem('pageLoaded', 'true');
+
+            } else {
+                content.innerHTML = text;
+                content2.innerHTML = text2;
+                document.getElementById('little').classList.remove('little')
+            }
+
+            var btn = document.getElementById('btn')
+            btn.addEventListener('click', function () {
+                window.location.href = './index2.html'
+            })
+
+
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
