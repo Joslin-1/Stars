@@ -2,115 +2,115 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>welcome</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-            background-image: url('./star-boy.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            background-image: url('./bg.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 
-        #btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
+        #btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
 
-        .little {
-            visibility: hidden;
-        }
+        .little {
+            visibility: hidden;
+        }
 
 
-        .little-animation {
-            animation: happy 1.2s linear forwards;
-        }
+        .little-animation {
+            animation: happy 1.2s linear forwards;
+        }
 
-        @keyframes happy {
+        @keyframes happy {
 
-            0% {
-                opacity: 0;
-            }
+            0% {
+                opacity: 0;
+            }
 
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
+            100% {
+                opacity: 1;
+            }
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="box">
-        <h1 id="word"></h1>
-        <h4 id="word2"></h4>
-        <div id="little" class="little">
-            <p>星星观测_web page🌟</p >
-            <p>正在一点一点完善…✍</p >
-            <p>敬请期待！</p >
-            <button id="btn">👉</button>
-        </div>
-    </div>
+    <div id="box">
+        <h1 id="word"></h1>
+        <h4 id="word2"></h4>
+        <div id="little" class="little">
+            <p>星星观测_web page🌟</p>
+            <p>正在一点一点完善…✍️</p>
+            <p>敬请期待！</p>
+            <button id="btn"><a href="./index2.html">👉</a></button>
+        </div>
+    </div>
 
-    <script>
+    <script>
 
-        var text = 'Happy every day !'
-        var text2 = '--To you'
-        var content = document.getElementById('word')
-        var content2 = document.getElementById('word2')
-        let index = 0;
-        let index2 = 0;
+        var text = 'Happy every day !'
+        var text2 = '--To you'
+        var content = document.getElementById('word')
+        var content2 = document.getElementById('word2')
+        let index = 0;
+        let index2 = 0;
 
-        window.onload = function () {
+        window.onload = function () {
 
-            var isLoaded = sessionStorage.getItem('pageLoaded')
+            var isLoaded = localStorage.getItem('pageLoaded')
 
-            function typeText() {
-                if (index < text.length) {
-                    content.innerHTML += text.charAt(index);
-                    index++;
-                    setTimeout(typeText, 150)
-                } else if (index2 < text2.length) {
-                    content2.innerHTML += text2.charAt(index2);
-                    index2++;
-                  
-                        setTimeout(typeText, 150)
-                } else {
-                    document.getElementById('little').classList.remove('little')
-                    document.getElementById('little').classList.add('little-animation')
-                }
-            }
-            if (!isLoaded) {
-                typeText()
-                sessionStorage.setItem('pageLoaded', 'true');
+            function typeText() {
+                if (index < text.length) {
+                    content.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(typeText, 150)
+                } else if (index2 < text2.length) {
+                    content2.innerHTML += text2.charAt(index2);
+                    index2++;
+                    setTimeout(typeText, 150)
+                } else {
+                    document.getElementById('little').classList.remove('little')
+                    document.getElementById('little').classList.add('little-animation')
+                }
+            }
+            if (!isLoaded) {
+                typeText()
+                localStorage.setItem('pageLoaded', 'true');
 
-            } else {
-                content.innerHTML = text;
-                content2.innerHTML = text2;
-                document.getElementById('little').classList.remove('little')
-            }
+            } else {
+                content.innerHTML = text;
+                content2.innerHTML = text2;
+                document.getElementById('little').classList.remove('little')
+            }
+        }
 
-            var btn = document.getElementById('btn')
-            btn.addEventListener('click', function () {
-                window.location.href = './index2.html'
-            })
+        // window.addEventListener('beforeunload', (event) => {
+        //     localStorage.clear()
 
-
-        }
+        // });
 
 
 
 
-    </script>
+    </script>
 </body>
 
 </html>
