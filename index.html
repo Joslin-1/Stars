@@ -75,7 +75,7 @@
 
         window.onload = function () {
 
-            var isLoaded = localStorage.getItem('pageLoaded')
+           // var isLoaded = localStorage.getItem('pageLoaded')
 
             function typeText() {
                 if (index < text.length) {
@@ -91,14 +91,14 @@
                     document.getElementById('little').classList.add('little-animation')
                 }
             }
-            if (!isLoaded) {
+           // if (!isLoaded) {
                 typeText()
-                localStorage.setItem('pageLoaded', 'true');
+               // localStorage.setItem('pageLoaded', 'true');
 
-            } else {
-                content.innerHTML = text;
-                content2.innerHTML = text2;
-                document.getElementById('little').classList.remove('little')
+          //  } else {
+                // content.innerHTML = text;
+                // content2.innerHTML = text2;
+                // document.getElementById('little').classList.remove('little')
             }
         }
 
