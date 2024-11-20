@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .check {
+            margin: 0 auto;
+            position: relative;
+            width: 375px;
+            height: 250px;
+            background-image: url('./bg.jpg');
+            /* background-color: aqua; */
+            background-repeat: no-repeat;
+            /* 整个图片填充在框框里 */
+            background-size: cover;
+        }
+
+        .check-content {
+            width: 50px;
+            height: 50px;
+            /* 黑色半透明 */
+            background: rgba(255, 255, 255, 1);
+            position: absolute;
+            top: 100px;
+            left: 280px;
+        }
+
+        .check-block {
+            width: 50px;
+            height: 50px;
+            background-image: inherit;
+            background-repeat: inherit;
+            background-size: 375px 250px;
+            /* background-position: -280px -100px;  这个是为了下面js代码做铺垫，有没有无所谓 */
+            position: absolute;
+            top: 100px;
+            left: 10px;
+            border: 0.5px solid #fff;
+        }
+
+        .drag {
+            width: 375px;
+            height: 50px;
+            background-color: #e3e3e3;
+            margin-top: 10px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .drag-block {
+            width: 50px;
+            height: 50px;
+            background-color: yellowgreen;
+            z-index: 10;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .drag-tips {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            font-size: 12px;
+            color: #8a8a8a;
+            /* 光标不会选中文字 */
+            user-select: none;
+        }
+
+        .tip {
+            z-index: 11;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <!-- 图片区域 -->
+        <div class="check">
+            <div class="check-content"></div>
+            <div class="check-block"></div>
+        </div>
+        <!-- 拖动条 -->
+        <div class="drag">
+            <div class="drag-block"></div>
+            <div class="drag-tips">
+                <span class="tip">按住左边按钮向右拖动完成上方图像验证</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var x = random(0, 325), y = random(0, 200)
+        function random(min, max) {
+            min = Math.ceil(min);
+            max = Math.ceil(max);
+            return Math.floor(Math.random() * (max - min) + min)
+        }
+        var checkContent = document.querySelector('.check-content')
+        var checkBlock = document.querySelector('.check-block')
+
+        checkContent.style.cssText = `left:${x}px;top:${y}px`
+
+        // checkBlock.style.cssText = `background-position:-${x}px -${y}px;top:${y}px`
+        checkBlock.style.backgroundPosition = `-${x}px -${y}px`;
+        checkBlock.style.top = `${y}px`;
+
+
+        var animating = false
+        var startX = 0
+        var dragBlock = document.querySelector('.drag-block')
+        dragBlock.addEventListener('mousedown', function (e) {
+            animating = true
+            startX = e.pageX
+        })
+        document.addEventListener('mouseup', function () {
+            animating = false
+        })
+        // offsetX是相对于左侧的距离
+        var offsetX = 0
+        var drag = document.querySelector('.drag')
+        drag.addEventListener('mousemove', function (m) {
+            if (!animating) {
+                return
+            }
+            offsetX = m.pageX - startX
+            if (offsetX < 0 || offsetX > 325) { return }
+
+            dragBlock.style.transform = `translateX(${offsetX}px)`
+            checkBlock.style.left = `${offsetX}px`
+        })
+
+        var tip = document.querySelector('.tip')
+        tip.classList.remove('tip')
+
+        dragBlock.addEventListener('mouseup', function () {
+            animating = false
+            if (offsetX >= x - 3 && offsetX <= x + 3) {
+             
+
+                var timer = setInterval(function () {
+                    timer--
+                    tip.innerHTML = '验证成功!'
+                    tip.classList.add('tip')
+                    if (timer == 0) {
+                        window.location.href = './index1.html'
+                        clearInterval(timer)
+                    }
+                }, 1000)
+
+            } else {
+                dragBlock.style.transform = `translateX(0px)`
+                checkBlock.style.left = `0px`
+                // alert('验证失败，请重新验证')
+                tip.innerHTML = '请重新验证'
+
+                var timeR = setInterval(function () {
+                    timeR--
+                    if (timeR == 0) {
+                        tip.innerHTML = '按住左边按钮向右拖动完成上方图像验证'
+                    }
+                }, 1500)
+
+
+            }
+        })
+    </script>
+</body>
+
+</html>
