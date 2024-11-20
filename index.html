@@ -4,21 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>welcome</title>
     <style>
         body {
-            width: 100vw;
+            margin: 0;
+            padding: 0;
             height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
+            text-align: center;
+            overflow: hidden;
         }
 
+
+        #btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .little {
+            visibility: hidden;
+        }
+
+
+        .little-animation {
+            animation: happy 1.2s linear forwards;
+        }
+
+        @keyframes happy {
+
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+
         .check {
-            margin: 0 auto;
+
             position: relative;
-            width: 375px;
-            height: 250px;
+            width: 300px;
+            height: 175px;
             background-image: url('./bg.jpg');
             /* background-color: aqua; */
             background-repeat: no-repeat;
@@ -27,6 +63,7 @@
         }
 
         .check-content {
+
             width: 50px;
             height: 50px;
             /* 黑色半透明 */
@@ -37,11 +74,12 @@
         }
 
         .check-block {
+
             width: 50px;
             height: 50px;
             background-image: inherit;
             background-repeat: inherit;
-            background-size: 375px 250px;
+            background-size: 300px 175px;
             /* background-position: -280px -100px;  这个是为了下面js代码做铺垫，有没有无所谓 */
             position: absolute;
             top: 100px;
@@ -50,10 +88,9 @@
         }
 
         .drag {
-            width: 375px;
+            width: 300px;
             height: 50px;
             background-color: #e3e3e3;
-            margin-top: 10px;
             position: relative;
             margin: 0 auto;
         }
@@ -84,11 +121,32 @@
         .tip {
             z-index: 11;
         }
+
+
+        .box {
+            display: block;
+        }
+        .top{
+            z-index: 99;
+        }
     </style>
 </head>
 
+<!--  https://github.com/Joslin-1/Joslin.git  -->
+
 <body>
-    <div class="box">
+    <div id="box" class="box">
+        <h1 id="word"></h1>
+        <h4 id="word2"></h4>
+        <div id="little" class="little">
+            <p>星星观测_web page🌟</p>
+            <p>正在一点一点完善…✍️</p>
+            <button id="btn">👉</button>
+        </div>
+    </div>
+
+
+    <div id="box1">
         <!-- 图片区域 -->
         <div class="check">
             <div class="check-content"></div>
@@ -103,81 +161,129 @@
         </div>
     </div>
 
+    
+
+
     <script>
-        var x = random(0, 325), y = random(0, 200)
-        function random(min, max) {
-            min = Math.ceil(min);
-            max = Math.ceil(max);
-            return Math.floor(Math.random() * (max - min) + min)
+
+        var text = 'Happy every day !'
+        var text2 = '--To you'
+        var content = document.getElementById('word')
+        var content2 = document.getElementById('word2')
+        let index = 0;
+        let index2 = 0;
+
+        window.onload = function () {
+
+            //随机生成一个x,y坐标，用于校验块的位置
+            var x = random(100, 250), y = random(0, 125)
+            function random(min, max) {
+                min = Math.ceil(min);
+                max = Math.ceil(max);
+                return Math.floor(Math.random() * (max - min) + min)
+            }
+            var checkContent = document.querySelector('.check-content')
+            var checkBlock = document.querySelector('.check-block')
+
+            // 设置位置      cssText属性可一次性设置多个CSS样式
+            checkContent.style.cssText = `left:${x}px;top:${y}px`
+
+            // 移动背景图片的位置（向左移动x  向下移动y）  和 顶部的位置为y
+            // checkBlock.style.cssText = `background-position:-${x}px -${y}px;top:${y}px`
+            checkBlock.style.backgroundPosition = `-${x}px -${y}px`;
+            checkBlock.style.top = `${y}px`;
+
+
+            // 定义一个运动状态，鼠标按下则为true
+            var animating = false
+            var startX = 0
+            var dragBlock = document.querySelector('.drag-block')
+            dragBlock.addEventListener('mousedown', function (e) {
+                animating = true
+                startX = e.pageX
+            })
+            document.addEventListener('mouseup', function () {
+                animating = false
+            })
+            // offsetX是相对于左侧的距离
+            var offsetX = 0
+            var drag = document.querySelector('.drag')
+            drag.addEventListener('mousemove', function (m) {
+                if (!animating) {
+                    return
+                }
+                offsetX = m.pageX - startX
+                if (offsetX < 0 || offsetX > 300) { return }
+
+                dragBlock.style.transform = `translateX(${offsetX}px)`
+                checkBlock.style.left = `${offsetX}px`
+            })
+
+            var tip = document.querySelector('.tip')
+            tip.classList.remove('tip')
+
+            // 滑块移动距离
+            dragBlock.addEventListener('mouseup', function () {
+                var animating = false
+                if (offsetX >= x - 3 && offsetX <= x + 3) {
+                    // alert('验证成功!3s后即将跳转页面')
+                    // 成功后可以跳转页面
+
+                    var timer = setInterval(function () {
+                        timer--
+                        tip.innerHTML = '验证成功!'
+                        tip.classList.add('tip')
+                        if (timer == 0) {
+                            document.getElementById('box1').style.display = 'none'
+
+                            document.getElementById('box').classList.remove('box')
+                            document.body.style.backgroundImage = 'url("./bg.jpg")'
+                            document.body.style.backgroundRepeat = 'no-repeat'
+                            document.body.style.backgroundSize = 'cover'
+
+                            clearInterval(timer)
+
+                            setTimeout(function () {
+                                function typeText() {
+
+                                    if (index < text.length) {
+                                        content.innerHTML += text.charAt(index);
+                                        index++;
+                                        setTimeout(typeText, 150)
+                                    } else if (index2 < text2.length) {
+                                        content2.innerHTML += text2.charAt(index2);
+                                        index2++;
+                                        setTimeout(typeText, 150)
+                                    } else {
+                                        document.getElementById('little').classList.remove('little')
+                                        document.getElementById('little').classList.add('little-animation')
+                                    }
+
+                                }
+                                typeText()
+
+                            }, 1000)
+
+                        }
+                    }, 1000)
+
+                } else {
+                    // dragBlock.style.transform = `translateX(0px)`
+                    // checkBlock.style.left = `0px`
+
+                    tip.innerHTML = '重新滑动'
+                    tip.classList.add('top')
+                    setTimeout(function () {
+                        window.location.href = './index.html'
+                    },500)
+
+
+                }
+            })
+
+
         }
-        var checkContent = document.querySelector('.check-content')
-        var checkBlock = document.querySelector('.check-block')
 
-        checkContent.style.cssText = `left:${x}px;top:${y}px`
-
-        // checkBlock.style.cssText = `background-position:-${x}px -${y}px;top:${y}px`
-        checkBlock.style.backgroundPosition = `-${x}px -${y}px`;
-        checkBlock.style.top = `${y}px`;
-
-
-        var animating = false
-        var startX = 0
-        var dragBlock = document.querySelector('.drag-block')
-        dragBlock.addEventListener('mousedown', function (e) {
-            animating = true
-            startX = e.pageX
-        })
-        document.addEventListener('mouseup', function () {
-            animating = false
-        })
-        var offsetX = 0
-        var drag = document.querySelector('.drag')
-        drag.addEventListener('mousemove', function (m) {
-            if (!animating) {
-                return
-            }
-            offsetX = m.pageX - startX
-            if (offsetX < 0 || offsetX > 325) { return }
-
-            dragBlock.style.transform = `translateX(${offsetX}px)`
-            checkBlock.style.left = `${offsetX}px`
-        })
-
-        var tip = document.querySelector('.tip')
-        tip.classList.remove('tip')
-
-        dragBlock.addEventListener('mouseup', function () {
-            animating = false
-            if (offsetX >= x - 3 && offsetX <= x + 3) {
-                // alert('验证成功!3s后即将跳转页面')
-                // 成功后可以跳转页面
-
-                var timer = setInterval(function () {
-                    timer--
-                    tip.innerHTML = '验证成功!'
-                    tip.classList.add('tip')
-                    if (timer == 0) {
-                        window.location.href = './index1.html'
-                        clearInterval(timer)
-                    }
-                }, 1000)
-
-            } else {
-                dragBlock.style.transform = `translateX(0px)`
-                checkBlock.style.left = `0px`
-                // alert('验证失败，请重新验证')
-                tip.innerHTML = '请重新验证'
-
-                var timeR = setInterval(function () {
-                    timeR--
-                    if (timeR == 0) {
-                        tip.innerHTML = '按住左边按钮向右拖动完成上方图像验证'
-                    }
-                }, 1500)
-
-
-            }
-        })
     </script>
 </body>
 
