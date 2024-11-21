@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content</title>
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hello,双子座</h1>
+
+    <script>
+        //  window.location.search 获取 URL 中的查询字符串部分。
+        // URLSearchParams 对象解析查询字符串，并获取 from 参数的值。
+        // 在页面加载时（window.onload 事件），检查 from 参数的值，如果是 index，则表示用户是从 index.html 页面跳转过来的，然后执行相应的操作
+        function getQueryParams() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            return urlParams.get("from");
+        }
+
+        window.onload = function () {
+            const fromPage = getQueryParams();
+            if (fromPage === "https://joslin-1.github.io/Joslin/index.html" || fromPage === "/D:/demo/index.html") {
+                sessionStorage.setItem('jumped', 'true')
+            } else {
+                // window.location.href = '/D:/demo/index.html'
+                 window.location.href = 'https://joslin-1.github.io/Joslin/index.html'
+            }
+        }
+
+    </script>
+</body>
+
+</html>
