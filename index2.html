@@ -32,11 +32,11 @@
 
         window.onload = function () {
             const fromPage = getQueryParams();
-            if (fromPage === "index.html" || fromPage === "index.html") {
+            if (fromPage === "/index.html" || fromPage === "index.html") {
                 sessionStorage.setItem('jumped', 'true')
             } else {
                 // window.location.href = '/D:/demo/index.html'
-                 window.location.href = 'index.html'
+                 window.location.href = '/index.html'
             }
         }
 
