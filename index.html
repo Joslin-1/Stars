@@ -14,30 +14,49 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            overflow: hidden;
+            flex-direction: column;
+            text-align: end;
+            background-image: url(./star-boy.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
+        @keyframes happy {
 
-        
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
 <!--  https://github.com/Joslin-1/Joslin.git  -->
 
 <body>
-    <div id="box" class="box">
+
+    <div id="box">
         <h1 id="word"></h1>
         <h4 id="word2"></h4>
-        <div id="little" class="little">
-            <p>星星观测_web page🌟</p>
-            <p>正在一点一点完善…✍️</p>
-        </div>
     </div>
 
-
-    
     <script>
+
+        document.onkeydown = function (event) {
+            if (event.key === "F12") {
+                window.close()
+            } else if (event.key === "F13" && event.key === 'Fn') {
+                window.close()
+
+            }
+        }
+        document.oncontextmenu = function (e) {
+            e.preventDefault();
+        }
+
 
         var text = 'Happy every day !'
         var text2 = '--To you'
@@ -47,30 +66,29 @@
         let index2 = 0;
 
         window.onload = function () {
-            
-                            setTimeout(function () {
-                                function typeText() {
 
-                                    if (index < text.length) {
-                                        content.innerHTML += text.charAt(index);
-                                        index++;
-                                        setTimeout(typeText, 150)
-                                    } else if (index2 < text2.length) {
-                                        content2.innerHTML += text2.charAt(index2);
-                                        index2++;
-                                        setTimeout(typeText, 150)
-                                    } else {
-                                        document.getElementById('little').classList.remove('little')
-                                        document.getElementById('little').classList.add('little-animation')
-                                    }
+            setTimeout(function () {
+                function typeText() {
 
-                                }
-                                typeText()
+                    if (index < text.length) {
+                        content.innerHTML += text.charAt(index);
+                        index++;
+                        setTimeout(typeText, 150)
+                    } else if (index2 < text2.length) {
+                        content2.innerHTML += text2.charAt(index2);
+                        index2++;
+                        setTimeout(typeText, 150)
+                    } else {
+                        document.getElementById('little').classList.remove('little')
+                        document.getElementById('little').classList.add('little-animation')
+                    }
 
-                            }, 1000)
+                }
+                typeText()
+
+            }, 1000)
 
         }
-
     </script>
 </body>
 
