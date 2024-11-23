@@ -16,7 +16,7 @@
             align-items: center;
             flex-direction: column;
             text-align: end;
-            background-image: url(./star-boy.jpg);
+            background-image: url(./bg.jpg);
             background-repeat: no-repeat;
             background-size: cover;
 
@@ -98,8 +98,8 @@
         window.onload = function () {
 
             if (sessionStorage.getItem('jumped') === 'true') {
-                content.innerHTML=text
-                content2.innerHTML=text2
+                content.innerHTML = text
+                content2.innerHTML = text2
                 document.getElementById('box2').classList.remove('box2')
             } else {
                 setTimeout(function () { //页面加载完成 1s后执行
@@ -123,13 +123,15 @@
             }
             document.getElementById('box2').addEventListener('click', function () {
                 //   ?from=   查询参数
-                window.location.href = 'https:/joslin-1.github.io/Joslin/index2.html?from=https://joslin-1.github.io/Joslin/index.html'
+                window.location.href = 'https://joslin-1.github.io/Joslin/index2.html?from=https://joslin-1.github.io/Joslin/index.html'
                 // window.location.href = '/D:/demo/index2.html?from=/D:/demo/index.html'
+                sessionStorage.setItem('allowed','true')
             })
 
 
 
         }
+    
     </script>
 </body>
 
