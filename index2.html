@@ -27,13 +27,14 @@
 
     <script>
        
+ 
+
+        window.onload = function () {
         function getQueryParams() {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             return urlParams.get("from");
         }
-
-        window.onload = function () {
             const fromPage = getQueryParams();
             if (fromPage === "https://joslin-1.github.io/Stars/index.html") {
                 sessionStorage.setItem('jumped', 'true')
