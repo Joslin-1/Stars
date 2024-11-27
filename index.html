@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
+      <link rel="shortcut icon" href="./boy.ico">
     <style>
         body {
             margin: 0;
@@ -58,12 +59,31 @@
                 opacity: 1;
             }
         }
+        
+        .loading {
+            z-index: 99;
+            animation: loading 1.5s linear infinite;
+        }
+
+        @keyframes loading {
+            from {
+
+                transform: scale(0.3) rotate(0deg);
+            }
+
+            to {
+
+                transform: scale(0.3) rotate(360deg);
+            }
+        }
     </style>
 </head>
 
 
 <body>
-
+ <div id="loadImg">
+        <img class="loading" src="./jiazai.png" alt="loading">
+    </div>
     <div id="box">
         <h1 id="word"></h1>
         <h4 id="word2"></h4>
@@ -73,6 +93,11 @@
     </div>
 
     <script>
+           var loadImg = document.getElementById('loadImg')
+        window.addEventListener('DOMContentLoaded', function () {
+            loadImg.style.display = 'none'
+            console.log('isLoaded')
+        })
 
         document.onkeydown = function (event) {
             if (event.key === "F12") {
