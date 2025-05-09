@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
-      <link rel="shortcut icon" href="./boy.ico">
+    <link rel="shortcut icon" href="./boy.ico">
     <style>
         body {
             margin: 0;
@@ -20,135 +20,129 @@
             background-image: url(./star-boy.jpg);
             background-repeat: no-repeat;
             background-size: cover;
+        }
 
+       .desktop-warning {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+        }
+
+       .mobile-content {
+            display: none;
         }
 
         #box {
             color: transparent;
             background-image: linear-gradient(to right, rgb(102, 215, 136), rgb(67, 192, 208));
             -webkit-background-clip: text;
+            -moz-background-clip: text;
             background-clip: text;
-        }
-
-
-        .box2 {
-            display: none;
-
+            padding: 20px;
         }
 
         #box2 {
             text-align: center;
             animation: happy 1s linear;
+            margin-top: 20px;
         }
 
         #btn {
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: solid black 1px;
-
+            background-color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            cursor: pointer;
         }
 
         @keyframes happy {
-
             0% {
                 opacity: 0;
             }
-
             100% {
                 opacity: 1;
             }
         }
-        
-        
-
-        
     </style>
 </head>
 
-
 <body>
-    <div class="noMobile">
-        <h1>电脑端不支持查看此网页</h1>
-        <p style="text-align:center;">请在手机移动端查看</p>
+    <div class="desktop-warning">
+        <h1>此页面不支持在电脑端访问</h1>
+        <p>请使用移动设备访问此页面。</p>
     </div>
- <div class="mobile">
-    <div id="box">
-        <h1 id="word"></h1>
-        <h4 id="word2"></h4>
-    </div>
-    <div id="box2" class="box2">
-        <button id="btn">→</button>
-    </div>
- </div>
-    <script>
-           
-        document.onkeydown = function (event) {
-            if (event.key === "F12") {
-                window.close()
-            } else if (event.key === "F12" && event.key === 'Fn') {
-                window.close()
 
+    <div class="mobile-content">
+        <div id="box">
+            <h1 id="word"></h1>
+            <h4 id="word2"></h4>
+        </div>
+        <div id="box2">
+            <button id="btn">→</button>
+        </div>
+    </div>
+
+    <script>
+        function isMobile() {
+            return (typeof window.orientation!== 'undefined') || (navigator.userAgent.indexOf('IEMobile')!== -1);
+        }
+
+        function initPage() {
+            if (isMobile()) {
+                document.querySelector('.mobile-content').style.display = 'block';
+                initMobileView();
+            } else {
+                document.querySelector('.desktop-warning').style.display = 'block';
             }
         }
-        document.oncontextmenu = function (e) {
-            e.preventDefault();
-        }
 
-if(!isMobile()){
-    document.querySelector(".noMobile").style.display="block";
-    document.querySelector(".Mobile").style.display="none"
-
-}
-
-
-
-
-
-        
-
-        var text = 'Happy every day !'
-        var text2 = ' --To you'
-        var content = document.getElementById('word')
-        var content2 = document.getElementById('word2')
-        let index = 0;
-        let index2 = 0;
-
-        window.onload = function () {
+        function initMobileView() {
+            var text = 'Happy every day !';
+            var text2 = ' --To you';
+            var content = document.getElementById('word');
+            var content2 = document.getElementById('word2');
+            let index = 0;
+            let index2 = 0;
 
             if (sessionStorage.getItem('jumped') === 'true') {
-                content.innerHTML = text
-                content2.innerHTML = text2
-                document.getElementById('box2').classList.remove('box2')
+                content.innerHTML = text;
+                content2.innerHTML = text2;
+                document.getElementById('box2').classList.remove('hide');
             } else {
-                setTimeout(function () { //页面加载完成 1s后执行
+                setTimeout(() => {
                     function typeText() {
-
                         if (index < text.length) {
                             content.innerHTML += text.charAt(index);
                             index++;
-                            setTimeout(typeText, 100)
+                            setTimeout(typeText, 100);
                         } else if (index2 < text2.length) {
                             content2.innerHTML += text2.charAt(index2);
                             index2++;
-                            setTimeout(typeText, 200)
+                            setTimeout(typeText, 200);
                         } else {
-                            document.getElementById('box2').classList.remove('box2')
+                            document.getElementById('box2').classList.remove('hide');
                         }
                     }
-                    typeText()
-
-                }, 1000)
+                    typeText();
+                }, 1000);
             }
+
             document.getElementById('box2').addEventListener('click', function () {
-                window.location.href = 'https://joslin-1.github.io/Stars/index2.html?from=https://joslin-1.github.io/Stars/index.html'
-                sessionStorage.setItem('allowed','true')
-            })
-
-
-
+                try {
+                    window.location.href = 'https://joslin-1.github.io/Stars/index2.html?from=https://joslin-1.github.io/Stars/index.html';
+                    sessionStorage.setItem('allowed', 'true');
+                    sessionStorage.setItem('jumped', 'true');
+                } catch (error) {
+                    console.error('页面跳转出错:', error);
+                }
+            });
         }
-    
+
+        window.onload = initPage;
     </script>
 </body>
 
