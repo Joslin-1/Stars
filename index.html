@@ -68,7 +68,11 @@
 
 
 <body>
- 
+    <div class="noMobile">
+        <h1>电脑端不支持查看此网页</h1>
+        <p style="text-align:center;">请在手机移动端查看</p>
+    </div>
+ <div class="mobile">
     <div id="box">
         <h1 id="word"></h1>
         <h4 id="word2"></h4>
@@ -76,7 +80,7 @@
     <div id="box2" class="box2">
         <button id="btn">→</button>
     </div>
-
+ </div>
     <script>
            
         document.onkeydown = function (event) {
@@ -91,6 +95,17 @@
             e.preventDefault();
         }
 
+if(!isMobile()){
+    document.querySelector(".noMobile").style.display="block";
+    document.querySelector(".Mobile").style.display="none"
+
+}
+
+
+
+
+
+        
 
         var text = 'Happy every day !'
         var text2 = ' --To you'
