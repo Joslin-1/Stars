@@ -20,9 +20,10 @@
             background-image: url(./star-boy.jpg);
             background-repeat: no-repeat;
             background-size: cover;
+            overflow: hidden;
         }
 
-       .desktop-warning {
+        .desktop-view {
             display: none;
             text-align: center;
             padding: 20px;
@@ -30,7 +31,7 @@
             border-radius: 10px;
         }
 
-       .mobile-content {
+        .mobile-view {
             display: none;
         }
 
@@ -38,7 +39,6 @@
             color: transparent;
             background-image: linear-gradient(to right, rgb(102, 215, 136), rgb(67, 192, 208));
             -webkit-background-clip: text;
-            -moz-background-clip: text;
             background-clip: text;
             padding: 20px;
         }
@@ -47,6 +47,7 @@
             text-align: center;
             animation: happy 1s linear;
             margin-top: 20px;
+            visibility: hidden;
         }
 
         #btn {
@@ -57,8 +58,10 @@
             background-color: rgba(255, 255, 255, 0.7);
             font-size: 18px;
             cursor: pointer;
+            transition: all 0.3s;
         }
 
+    
         @keyframes happy {
             0% {
                 opacity: 0;
@@ -67,39 +70,53 @@
                 opacity: 1;
             }
         }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="desktop-warning">
+    <div class="desktop-view">
         <h1>此页面不支持在电脑端访问</h1>
         <p>请使用移动设备访问此页面。</p>
     </div>
 
-    <div class="mobile-content">
+    <div class="mobile-view">
         <div id="box">
             <h1 id="word"></h1>
             <h4 id="word2"></h4>
         </div>
-        <div id="box2">
+        <div id="box2" class="box2">
             <button id="btn">→</button>
         </div>
     </div>
 
     <script>
-        function isMobile() {
-            return (typeof window.orientation!== 'undefined') || (navigator.userAgent.indexOf('IEMobile')!== -1);
+        // 设备检测函数
+        function isMobileDevice() {
+            return (typeof window.orientation!== 'undefined') || 
+                   (navigator.userAgent.indexOf('IEMobile')!== -1) ||
+                   (navigator.userAgent.indexOf('Mobile')!== -1);
         }
 
-        function initPage() {
-            if (isMobile()) {
-                document.querySelector('.mobile-content').style.display = 'block';
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            if (isMobileDevice()) {
+                // 移动设备访问
+                document.querySelector('.mobile-view').style.display = 'block';
                 initMobileView();
             } else {
-                document.querySelector('.desktop-warning').style.display = 'block';
+                // 电脑端访问
+                document.querySelector('.desktop-view').style.display = 'block';
             }
-        }
+        });
 
+        // 初始化移动视图
         function initMobileView() {
             var text = 'Happy every day !';
             var text2 = ' --To you';
@@ -109,41 +126,50 @@
             let index2 = 0;
 
             if (sessionStorage.getItem('jumped') === 'true') {
+                // 已访问过，直接显示全部内容
                 content.innerHTML = text;
                 content2.innerHTML = text2;
-                document.getElementById('box2').classList.remove('hide');
+                document.getElementById('box2').classList.remove('box2');
             } else {
-                setTimeout(() => {
+                // 首次访问，显示打字动画
+                setTimeout(function() {
                     function typeText() {
-                        if (index < text.length) {
-                            content.innerHTML += text.charAt(index);
-                            index++;
-                            setTimeout(typeText, 100);
-                        } else if (index2 < text2.length) {
-                            content2.innerHTML += text2.charAt(index2);
-                            index2++;
-                            setTimeout(typeText, 200);
-                        } else {
-                            document.getElementById('box2').classList.remove('hide');
+                        try {
+                            if (index < text.length) {
+                                content.innerHTML += text.charAt(index);
+                                index++;
+                                setTimeout(typeText, 100);
+                            } else if (index2 < text2.length) {
+                                content2.innerHTML += text2.charAt(index2);
+                                index2++;
+                                setTimeout(typeText, 200);
+                                document.getElementById('box2').style.visibility = 'visible';
+                            } else {
+                                document.getElementById('box2').classList.remove('box2');
+                            }
+                        } catch (error) {
+                            console.error('动画执行出错:', error);
+                            content.innerHTML = text;
+                            content2.innerHTML = text2;
+                            document.getElementById('box2').classList.remove('box2');
                         }
                     }
                     typeText();
-                }, 1000);
+                }, 500);
             }
 
-            document.getElementById('box2').addEventListener('click', function () {
+            // 按钮点击事件
+            document.getElementById('box2').addEventListener('click', function() {
                 try {
                     window.location.href = 'https://joslin-1.github.io/Stars/index2.html?from=https://joslin-1.github.io/Stars/index.html';
-                    sessionStorage.setItem('allowed', 'true');
                     sessionStorage.setItem('jumped', 'true');
                 } catch (error) {
-                    console.error('页面跳转出错:', error);
+                    console.error('跳转出错:', error);
+                    alert('跳转失败，请稍后再试');
                 }
             });
         }
-
-        window.onload = initPage;
     </script>
 </body>
 
-</html>
+</html>    
