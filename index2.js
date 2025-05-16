@@ -15,7 +15,7 @@
         // window.location.href = "./index.html"
     }
     if (sessionStorage.getItem('allowed') != 'true') {
-        window.history.back()
+        window.location.href="https://joslin-1.github.io/Stars/index.html"
         document.body.classList.add('lj')
     } else {
         sessionStorage.removeItem('allowed')
