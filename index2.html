@@ -6,34 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Content</title>
     <link rel="shortcut icon" href="./boy.ico">
-    <script>
-        window.onload = function () {
-            navigator.vibrate(1000);// 手机震动1s
-            
-            function getQueryParams() {
-                const queryString = window.location.search;
-                const urlParams = new URLSearchParams(queryString);
-                return urlParams.get("from");
-            }
-            const fromPage = getQueryParams();
-            if (fromPage === "https://joslin-1.github.io/Stars/index.html") {
-
-                sessionStorage.setItem('jumped', 'true')
-            } else {
-                document.body.classList.add('lj')
-                 window.location.href = 'https://joslin-1.github.io/Stars/index.html'
-            }
-            if (sessionStorage.getItem('allowed') != 'true') {
-                document.body.classList.add('lj')
-                window.location.href = 'https://joslin-1.github.io/Stars/index.html'
-            } else {
-                sessionStorage.removeItem('allowed')
-
-            }
-
-        }
-
-    </script>
     <style>
         body {
             width: 100vw;
@@ -51,8 +23,10 @@
 </head>
 
 <body>
+
     <h1>Hello·Stars!</h1>
 
+    <script src="./index2.js"></script>
 
 </body>
 
