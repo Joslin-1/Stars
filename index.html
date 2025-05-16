@@ -45,9 +45,14 @@
 
         #box2 {
             text-align: center;
-            animation: happy 1s linear;
             margin-top: 20px;
-            visibility: hidden;
+            animation: happy 1s linear;
+
+        }
+
+        .box2 {
+            display: none;
+
         }
 
         #btn {
@@ -57,19 +62,20 @@
             border: solid black 1px;
             background-color: rgba(255, 255, 255, 0.7);
             font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s;
+
         }
 
-    
         @keyframes happy {
             0% {
                 opacity: 0;
             }
+
             100% {
                 opacity: 1;
             }
+
         }
+
 
         /* 移动端适配 */
         @media (max-width: 768px) {
@@ -118,58 +124,58 @@
 
         // 初始化移动视图
         function initMobileView() {
-            var text = 'Happy every day !';
-            var text2 = ' --To you';
-            var content = document.getElementById('word');
-            var content2 = document.getElementById('word2');
-            let index = 0;
-            let index2 = 0;
+        var text = 'Happy every day !';
+        var text2 = ' --To you';
+        var content = document.getElementById('word');
+        var content2 = document.getElementById('word2');
+        let index = 0;
+        let index2 = 0;
 
-            if (sessionStorage.getItem('jumped') === 'true') {
-                // 已访问过，直接显示全部内容
-                content.innerHTML = text;
-                content2.innerHTML = text2;
-                document.getElementById('box2').classList.remove('box2');
-            } else {
-                // 首次访问，显示打字动画
-                setTimeout(function() {
-                    function typeText() {
-                        try {
-                            if (index < text.length) {
-                                content.innerHTML += text.charAt(index);
-                                index++;
-                                setTimeout(typeText, 100);
-                            } else if (index2 < text2.length) {
-                                content2.innerHTML += text2.charAt(index2);
-                                index2++;
-                                setTimeout(typeText, 200);
-                                document.getElementById('box2').style.visibility = 'visible';
-                            } else {
-                                document.getElementById('box2').classList.remove('box2');
-                            }
-                        } catch (error) {
-                            console.error('动画执行出错:', error);
-                            content.innerHTML = text;
-                            content2.innerHTML = text2;
+        if (sessionStorage.getItem('jumped') === 'true') {
+            // 已访问过，直接显示全部内容
+            content.innerHTML = text;
+            content2.innerHTML = text2;
+            document.getElementById('box2').classList.remove('box2');
+        } else {
+            // 首次访问，显示打字动画
+            setTimeout(function () {
+                function typeText() {
+                    try {
+                        if (index < text.length) {
+                            content.innerHTML += text.charAt(index);
+                            index++;
+                            setTimeout(typeText, 100);
+                        } else if (index2 < text2.length) {
+                            content2.innerHTML += text2.charAt(index2);
+                            index2++;
+                            setTimeout(typeText, 200);
+                        } else {
                             document.getElementById('box2').classList.remove('box2');
                         }
+                    } catch (error) {
+                        console.error('动画执行出错:', error);
+                        // 出错时直接显示全部内容
+                        content.innerHTML = text;
+                        content2.innerHTML = text2;
+                        document.getElementById('box2').classList.remove('box2');
                     }
-                    typeText();
-                }, 500);
-            }
-
-            // 按钮点击事件
-            document.getElementById('box2').addEventListener('click', function() {
-                try {
-                    window.location.href = 'https://joslin-1.github.io/Stars/index2.html?from=https://joslin-1.github.io/Stars/index.html';
-                    sessionStorage.setItem('jumped', 'true');
-                } catch (error) {
-                    console.error('跳转出错:', error);
-                    alert('跳转失败，请稍后再试');
                 }
-            });
+                typeText();
+            }, 500);
+        }
+
+        // 按钮点击事件
+        document.getElementById('box2').addEventListener('click', function () {
+            try {
+                window.location.href = 'https://joslin-1.github.io/Stars/index2.html?from=https://joslin-1.github.io/Stars/index.html';
+                sessionStorage.setItem('jumped', 'true');
+            } catch (error) {
+                console.error('跳转出错:', error);
+                alert('跳转失败，请稍后再试');
+            }
+        });
         }
     </script>
 </body>
 
-</html>    
+</html>
